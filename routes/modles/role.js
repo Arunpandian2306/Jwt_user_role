@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../DBConfig/connection');
-//const Permission = require('./Permission');  // Assuming Permission model is in the same directory
-
+//const Permission = require('./Permission');  
 const Role = sequelize.define('Role', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   role_name: { type: DataTypes.STRING, unique: true, allowNull: false },

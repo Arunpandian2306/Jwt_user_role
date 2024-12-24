@@ -5,12 +5,12 @@ const RolePermission = sequelize.define('RolePermission', {
   role_id: { 
     type: DataTypes.INTEGER, 
     references: { model: 'roles', key: 'id' },
-    field: 'role_id' // Map to snake_case column
+    field: 'role_id' 
   },
   permission_id: { 
     type: DataTypes.INTEGER, 
     references: { model: 'permissions', key: 'id' },
-    field: 'permission_id' // Map to snake_case column
+    field: 'permission_id'
   },
 }, {
   tableName: 'role_permissions',

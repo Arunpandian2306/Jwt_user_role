@@ -5,12 +5,12 @@ const UserRole = sequelize.define('UserRole', {
   user_id: { 
     type: DataTypes.INTEGER, 
     references: { model: 'users', key: 'id' },
-    field: 'user_id' // Explicitly map to database column
+    field: 'user_id' 
   },
   role_id: { 
     type: DataTypes.INTEGER, 
     references: { model: 'roles', key: 'id' },
-    field: 'role_id' // Explicitly map to database column
+    field: 'role_id' 
   },
 }, {
   tableName: 'user_roles',

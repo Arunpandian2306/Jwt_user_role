@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../routes/modles/user');
-const { sendError } = require('../routes/utils/errorHandler'); 
+const { sendError } = require('../routes/utils/errorHandler');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
@@ -37,31 +37,31 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' });
+    return res.status(400).json({ error: 'Email and password are required' });
   }
 
   try {
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-          return res.status(401).json({ error: 'Invalid credentials' });
-      }
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
-      const isValidPassword = await bcrypt.compare(password, user.password_hash);
-      if (!isValidPassword) {
-          return res.status(401).json({ error: 'Invalid credentials' });
-      }
+    const isValidPassword = await bcrypt.compare(password, user.password_hash);
+    if (!isValidPassword) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
-      const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '15m' });
-      const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-      res.status(200).json({
-          message: 'Login successful',
-          accessToken,
-          refreshToken,
-      });
+    res.status(200).json({
+      message: 'Login successful',
+      accessToken,
+      refreshToken,
+    });
   } catch (error) {
-      console.error('Error logging in:', error);
-      res.status(500).json({ error: 'An error occurred while logging in' });
+    console.error('Error logging in:', error);
+    res.status(500).json({ error: 'An error occurred while logging in' });
   }
 });
 

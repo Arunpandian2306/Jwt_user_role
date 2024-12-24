@@ -4,7 +4,7 @@ const { sequelize } = require('../routes/modles/index');
 const verifyToken = require('../routes/Middleware/authenticateJWT');
 const router = express.Router();
 
-router.get('/',verifyToken, async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
   try {
     const roles = await Role.findAll();
     res.status(200).json(roles);
@@ -13,7 +13,7 @@ router.get('/',verifyToken, async (req, res) => {
   }
 });
 
-router.post('/',verifyToken, async (req, res) => {
+router.post('/', verifyToken, async (req, res) => {
   const { role_name } = req.body;
   try {
     const role = await Role.create({ role_name });
@@ -28,7 +28,21 @@ router.post('/:role_id/permissions', verifyToken, async (req, res) => {
   const { permission_ids } = req.body;
 
   try {
-    // Validate permission IDs
+
+    const roleExists = await sequelize.query(
+      `
+      SELECT id FROM roles WHERE id = :role_id
+      `,
+      {
+        replacements: { role_id },
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+
+    if (!roleExists.length) {
+      return res.status(400).json({ error: "The provided role ID does not exist." });
+    }
+
     const validPermissions = await sequelize.query(
       `
       SELECT id FROM permissions WHERE id IN (:permission_ids)
@@ -42,13 +56,12 @@ router.post('/:role_id/permissions', verifyToken, async (req, res) => {
     const validPermissionIds = validPermissions.map((permission) => permission.id);
 
     if (validPermissionIds.length !== permission_ids.length) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: "Some permissions do not exist.",
         invalidIds: permission_ids.filter(id => !validPermissionIds.includes(id)),
       });
     }
 
-    // Insert valid permissions into role_permissions
     for (const permission_id of validPermissionIds) {
       await sequelize.query(
         `
@@ -63,12 +76,12 @@ router.post('/:role_id/permissions', verifyToken, async (req, res) => {
       );
     }
 
-    res.status(200).json({ message: 'Permissions assigned to role successfully' });
+    res.status(200).json({ message: 'Permissions successfully assigned to the role.' });
   } catch (error) {
+    console.error('Error assigning permissions:', error.message);
     res.status(422).json({ error: error.message });
   }
 });
-
 
 
 module.exports = router;
