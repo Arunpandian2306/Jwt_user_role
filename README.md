@@ -28,3 +28,53 @@ Restore the Database Dump (urp.sql)
         Name the database (e.g., urp).
     After creating the database, right-click on it and select Restore.
     Select the urp.sql file and click Restore.
+
+
+Clone the Repository
+
+Clone the repository to your local machine:
+
+git clone https://github.com/Arunpandian2306/Jwt_user_role.git
+cd Jwt_user_role
+
+
+nstall Dependencies
+
+Inside the cloned repository directory, install the required dependencies:
+
+npm install
+
+Run the Application
+
+Start the server using the following command:
+
+npm start
+
+The server should now be running at http://localhost:3000.
+API Documentation
+1. User Registration
+
+POST http://localhost:3000/api/register
+
+This endpoint allows you to register a new user.
+Request Body:
+
+{
+  "username": "testuser1",
+  "email": "testuser1@example.com",
+  "password": "password123"
+}
+
+Response (Success):
+
+{
+  "message": "User registered successfully",
+  "user": {
+    "created_at": "2024-12-24T08:41:31.836Z",
+    "updated_at": "2024-12-24T08:41:31.836Z",
+    "id": 5,
+    "username": "testuser1",
+    "email": "testuser1@example.com",
+    "password_hash": "$2b$10$9MyUiw3FuV0qTeuY9vUXR.T0mDHbAOsy3ZVhTea1GaQLTl7G62rTy"
+  }
+}
