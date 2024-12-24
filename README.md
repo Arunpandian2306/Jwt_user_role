@@ -17,3 +17,14 @@ Before setting up the project, ensure the following are installed on your system
 
    ```bash
    psql --version
+    Open pgAdmin and connect to your PostgreSQL server.
+
+Restore the Database Dump (urp.sql)
+
+    Download the urp.sql database dump file (provided separately).
+    Open pgAdmin and connect to your PostgreSQL server.
+    Create a new database:
+        Right-click on Databases and select Create > Database.
+        Name the database (e.g., urp).
+    After creating the database, right-click on it and select Restore.
+    Select the urp.sql file and click Restore.
