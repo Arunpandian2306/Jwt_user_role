@@ -66,6 +66,10 @@ This endpoint allows you to register a new user.
   "email": "testuser1@example.com",
   "password": "password123"
 }
+
+### Respose:
+
+```json
 {
   "message": "User registered successfully",
   "user": {
