@@ -58,27 +58,31 @@ API Documentation
 
 This endpoint allows you to register a new user.
 
-### Request Body:
+## User Registration
+
+**POST** `http://localhost:3000/api/register`
+
+This endpoint allows you to register a new user.
+
+### Request Body and Response:
 
 ```json
 {
-  "username": "testuser1",
-  "email": "testuser1@example.com",
-  "password": "password123"
-}
-
-### Respose:
-
-```json
-{
-  "message": "User registered successfully",
-  "user": {
-    "created_at": "2024-12-24T08:41:31.836Z",
-    "updated_at": "2024-12-24T08:41:31.836Z",
-    "id": 5,
+  "request": {
     "username": "testuser1",
     "email": "testuser1@example.com",
-    "password_hash": "$2b$10$9MyUiw3FuV0qTeuY9vUXR.T0mDHbAOsy3ZVhTea1GaQLTl7G62rTy"
+    "password": "password123"
+  },
+  "response": {
+    "message": "User registered successfully",
+    "user": {
+      "created_at": "2024-12-24T08:41:31.836Z",
+      "updated_at": "2024-12-24T08:41:31.836Z",
+      "id": 5,
+      "username": "testuser1",
+      "email": "testuser1@example.com",
+      "password_hash": "$2b$10$9MyUiw3FuV0qTeuY9vUXR.T0mDHbAOsy3ZVhTea1GaQLTl7G62rTy"
+    }
   }
 }
 
