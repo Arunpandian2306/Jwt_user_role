@@ -52,21 +52,20 @@ npm start
 
 The server should now be running at http://localhost:3000.
 API Documentation
-1. User Registration
+## User Registration
 
-POST http://localhost:3000/api/register
+**POST** `http://localhost:3000/api/register`
 
 This endpoint allows you to register a new user.
-Request Body:
 
+### Request Body:
+
+```json
 {
   "username": "testuser1",
   "email": "testuser1@example.com",
   "password": "password123"
 }
-
-Response (Success):
-
 {
   "message": "User registered successfully",
   "user": {
@@ -78,3 +77,4 @@ Response (Success):
     "password_hash": "$2b$10$9MyUiw3FuV0qTeuY9vUXR.T0mDHbAOsy3ZVhTea1GaQLTl7G62rTy"
   }
 }
+
