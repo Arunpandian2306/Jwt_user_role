@@ -63,8 +63,8 @@ router.get('/:user_id', verifyToken, async (req, res) => {
           u.id = :user_id;
       `,
       {
-        replacements: { user_id }, // Pass user_id dynamically
-        type: sequelize.QueryTypes.SELECT, // Specify the query type
+        replacements: { user_id }, 
+        type: sequelize.QueryTypes.SELECT, 
       }
     );
 
@@ -72,7 +72,6 @@ router.get('/:user_id', verifyToken, async (req, res) => {
       return res.status(404).json({ error: 'User not found or no permissions assigned' });
     }
 
-    // Return the raw query result
     res.status(200).json(userPermissions);
   } catch (error) {
     console.error('Error fetching user permissions:', error.message);
