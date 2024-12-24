@@ -28,7 +28,7 @@ router.get('/', verifyToken, async (req, res) => {
 
     res.status(200).json(usersWithRoles);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(422).json({ error: error.message });
   }
 });
 
@@ -76,7 +76,7 @@ router.get('/:user_id', verifyToken, async (req, res) => {
     res.status(200).json(userPermissions);
   } catch (error) {
     console.error('Error fetching user permissions:', error.message);
-    res.status(500).json({ error: error.message });
+    res.status(422).json({ error: error.message });
   }
 });
 

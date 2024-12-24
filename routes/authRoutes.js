@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
     });
   } catch (error) {
     console.error('Error logging in:', error);
-    res.status(500).json({ error: 'An error occurred while logging in' });
+    res.status(422).json({ error: 'An error occurred while logging in' });
   }
 });
 

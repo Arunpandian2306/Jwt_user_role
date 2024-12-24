@@ -22,7 +22,7 @@ router.post('/permissions', verifyToken, async (req, res) => {
         if (error.name === 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ error: 'Permission name already exists.' });
         }
-        res.status(500).json({ error: error.message });
+        res.status(422).json({ error: error.message });
     }
 });
 
@@ -40,7 +40,7 @@ router.get('/permissions', verifyToken, async (req, res) => {
         res.status(200).json({ data: permissions });
     } catch (error) {
         console.error('Error fetching permissions:', error.message);
-        res.status(500).json({ error: error.message });
+        res.status(422).json({ error: error.message });
     }
 });
 
