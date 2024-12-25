@@ -50,6 +50,10 @@ Start the server using the following command:
 
 npm start
 
+API Postman Invite
+
+https://app.getpostman.com/join-team?invite_code=82717bc575c61036f99866fcc621cb9f3f74fcd6a8228646b712b0bf739033a4
+
 The server should now be running at http://localhost:3000.
 
 
