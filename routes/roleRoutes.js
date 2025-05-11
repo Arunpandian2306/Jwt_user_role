@@ -13,6 +13,35 @@ router.get('/', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/:role_id/permissions', verifyToken, async (req, res) => {
+  const { role_id } = req.params;
+
+  try {
+    const permissions = await sequelize.query(
+      `
+      SELECT p.id, p.name AS permission_name
+      FROM permissions p
+      INNER JOIN role_permissions rp ON p.id = rp.permission_id
+      WHERE rp.role_id = :role_id
+      `,
+      {
+        replacements: { role_id },
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+
+    if (!permissions.length) {
+      return res.status(422).json({ message: 'No permissions found for the given role.' });
+    }
+
+    res.status(200).json(permissions);
+  } catch (error) {
+    console.error('Error fetching role permissions:', error.message);
+    res.status(422).json({ error: error.message });
+  }
+});
+
+
 router.post('/', verifyToken, async (req, res) => {
   const { role_name } = req.body;
   try {
